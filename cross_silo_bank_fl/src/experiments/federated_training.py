@@ -172,7 +172,7 @@ def run_federated_simulation(
     print(final_metrics_df.to_string(index=False))
 
     # Calculate aggregate metrics
-    final_ auc = final_metrics_df['auc_roc_final'].mean()
+    final_auc = final_metrics_df['auc_roc_final'].mean()
     best_auc = final_metrics_df['auc_roc_best'].mean()
 
     print(f"\nAggregate Metrics:")
