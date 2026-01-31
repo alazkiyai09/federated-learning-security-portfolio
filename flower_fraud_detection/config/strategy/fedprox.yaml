@@ -1,0 +1,21 @@
+# FedProx Strategy Configuration
+# @package strategy
+
+strategy_name: "fedprox"
+
+# FedProx hyperparameters
+# Proximal term coefficient (mu) - controls the strength of the proximal term
+# Higher mu = more constraint on local updates to stay close to global model
+proximal_mu: 0.01
+
+# You can experiment with different mu values:
+# - mu = 0.001: Light constraint (similar to FedAvg)
+# - mu = 0.01: Moderate constraint (default)
+# - mu = 0.1: Strong constraint (clients stay very close to global model)
+# - mu = 1.0: Very strong constraint (minimal local deviation)
+
+server_learning_rate: 1.0
+accept_failures: true
+fit_metrics_aggregation: ["weighted_average"]
+evaluate_metrics_aggregation: ["weighted_average"]
+initial_parameters: null

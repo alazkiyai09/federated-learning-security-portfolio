@@ -1,0 +1,95 @@
+# Personalization Method Hyperparameters
+# Method-specific configurations for fair comparison
+
+methods:
+  # Baseline: Standard FedAvg (no personalization)
+  fedavg:
+    name: "FedAvg"
+    description: "Standard federated averaging (baseline)"
+    enabled: true
+
+  # Method 1: Local Fine-Tuning
+  local_finetuning:
+    name: "Local Fine-Tuning"
+    description: "Train global model, then fine-tune locally"
+    enabled: true
+    finetuning_epochs: 10     # Local fine-tuning epochs after global training
+    finetuning_lr: 0.001      # Learning rate for fine-tuning
+    finetuning_batch_size: 32
+    freeze_layers: []         # Empty = fine-tune all layers
+
+  # Method 2: Per-FedAvg (MAML-inspired)
+  per_fedavg:
+    name: "Per-FedAvg"
+    description: "Meta-learning for fast adaptation with Moreau envelopes"
+    enabled: true
+    beta: 1.0                 # Moreau envelope regularization strength
+    lr_inner: 0.01            # Inner loop (adaptation) learning rate
+    num_inner_steps: 5        # Number of gradient steps in inner loop
+    lr_meta: 0.001            # Meta-learning (outer loop) learning rate
+    first_order_approx: false # Use first-order approximation (faster, less accurate)
+
+  # Method 3: FedPer (Personalized Layers)
+  fedper:
+    name: "FedPer"
+    description: "Shared feature extractor, personalized classifier"
+    enabled: true
+    personal_layers:
+      - "classifier"          # Layer names to personalize
+    freeze_feature_extractor: true
+    personal_lr: 0.01         # Learning rate for personalized layers
+    shared_lr: 0.001          # Learning rate for shared layers
+
+  # Method 4: Ditto
+  ditto:
+    name: "Ditto"
+    description: "Local + global model with proximal regularization"
+    enabled: true
+    lambda_regularization: 0.5  # Strength of local model regularization
+    personal_epochs: 5          # Local model training epochs
+    local_lr: 0.01              # Learning rate for local model
+    global_lr: 0.001            # Learning rate for global model updates
+    use_proximal_term: true     # Use FedProx-style proximal term
+
+# Compute budget allocation per method
+# Ensures fair comparison across methods
+compute_allocation:
+  # Total local epochs (including personalization phases)
+  total_local_epochs:
+    fedavg: 5
+    local_finetuning: 15        # 5 global + 10 fine-tuning
+    per_fedavg: 5              # Inner loop adds overhead but same epochs
+    fedper: 5
+    ditto: 10                   # 5 global + 5 local model
+
+  # Communication rounds
+  communication_rounds:
+    fedavg: 100
+    local_finetuning: 100       # Same rounds, fine-tuning is post-hoc
+    per_fedavg: 100
+    fedper: 100
+    ditto: 100
+
+# Evaluation settings per method
+evaluation:
+  # Evaluate personalization benefit after these rounds
+  evaluation_rounds: [20, 50, 100]
+
+  # Per-client metrics to track
+  track_per_client:
+    - "global_model_performance"   # Global model on client data
+    - "personalized_performance"   # Personalized model on client data
+    - "personalization_delta"      # Personalized - Global
+    - "training_time"              # Local training time
+    - "communication_cost"         # Bytes sent/received
+
+# Output settings
+output:
+  save_per_client_metrics: true
+  save_checkpoints: true
+  save_aggregation_history: true
+  figures:
+    - "violin_plot"               # Per-client performance distribution
+    - "trade_off_curve"           # Personalization vs generalization
+    - "alpha_sensitivity"         # Performance vs non-IID level
+    - "client_radar"              # Per-client comparison across methods

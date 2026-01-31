@@ -1,0 +1,25 @@
+# Property Inference Attack - Dependencies
+
+# Core ML/DL
+torch>=1.9.0
+scikit-learn>=1.0.0
+numpy>=1.20.0
+pandas>=1.3.0
+
+# Visualization
+matplotlib>=3.3.0
+seaborn>=0.11.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Configuration
+PyYAML>=5.4.0
+
+# Testing
+pytest>=6.2.0
+pytest-cov>=2.12.0
+
+# Jupyter (for experiments)
+jupyter>=1.0.0
+ipykernel>=5.5.0

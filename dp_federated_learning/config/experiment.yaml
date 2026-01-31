@@ -1,0 +1,59 @@
+# Experiment Configuration for Utility-Privacy Analysis
+
+# Federated Learning parameters
+federated:
+  num_clients: 10
+  client_fraction: 0.5  # Fraction of clients sampled per round
+  num_rounds: 100
+  local_epochs: 5
+
+# Model architecture
+model:
+  input_dim: 20  # Number of features
+  hidden_dims: [64, 32, 16]
+  output_dim: 2  # Binary classification
+
+# Training parameters
+training:
+  batch_size: 32
+  learning_rate: 0.01
+  momentum: 0.9
+  weight_decay: 1.0e-4
+
+# Experiment grid
+experiments:
+  # Utility vs privacy sweep
+  utility_analysis:
+    epsilon_values: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+    delta: 1.0e-5
+    num_runs: 5  # Multiple runs for statistical significance
+    random_seed: [42, 123, 456, 789, 999]
+
+  # Convergence study
+  convergence_study:
+    epsilon_values: [1.0, 5.0]
+    delta: 1.0e-5
+    track_per_round: true
+    save_checkpoints: true
+
+  # Per-class analysis
+  per_class_analysis:
+    epsilon_values: [0.5, 1.0, 2.0, 5.0]
+    delta: 1.0e-5
+    focus: 'fraud'  # Track fraud class specifically
+
+# Evaluation metrics
+metrics:
+  - accuracy
+  - precision
+  - recall
+  - f1
+  - auc_roc
+  - per_class_recall  # Critical for fraud detection
+
+# Output settings
+output:
+  save_gradients: false
+  save_models: true
+  log_privacy_budget: true
+  log_clip_norms: true

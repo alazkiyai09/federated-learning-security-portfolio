@@ -1,0 +1,48 @@
+# Experiment Configuration
+
+# Data settings
+data:
+  num_samples: 100000
+  fraud_ratio: 0.05  # 5% fraud (imbalanced)
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+
+# PSI (Private Set Intersection) settings
+psi:
+  method: "hashing"  # Options: hashing, ec (elliptic curve)
+  hash_function: "sha256"
+  salt_length: 32
+
+# Training settings
+training:
+  num_epochs: 50
+  early_stopping_patience: 10
+  learning_rate: 0.001
+  batch_size: 256
+  gradient_clip: 1.0
+
+# Evaluation metrics
+evaluation:
+  metrics:
+    - auc_roc
+    - auc_pr
+    - precision
+    - recall
+    - f1
+    - confusion_matrix
+  threshold: 0.5
+
+# Privacy settings
+privacy:
+  analyze_gradient_leakage: true
+  num_leakage_samples: 1000
+  threat_model: "honest_but_curious"  # Options: honest_but_curious, malicious
+
+# Output settings
+output:
+  log_interval: 10  # epochs
+  save_checkpoints: true
+  checkpoint_dir: "results/checkpoints"
+  tensorboard: false

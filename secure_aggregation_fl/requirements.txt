@@ -1,0 +1,17 @@
+# Core dependencies
+torch>=1.9.0
+numpy>=1.19.0
+
+# Cryptography
+pycryptodome>=3.15.0
+
+# Testing
+pytest>=6.2.0
+pytest-cov>=2.12.0
+
+# Utilities
+pyyaml>=5.4.0
+
+# Optional development dependencies
+matplotlib>=3.3.0
+jupyter>=1.0.0

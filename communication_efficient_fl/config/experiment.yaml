@@ -1,0 +1,128 @@
+# Experiment configuration for communication-efficient FL
+
+# Dataset
+dataset:
+  name: "creditcard"  # or "synthetic"
+  num_samples: 284807  # Credit card fraud dataset
+  num_features: 30
+  num_classes: 2
+
+  # Fraud ratio (highly imbalanced)
+  fraud_ratio: 0.00173
+
+  # Data partitioning
+  num_clients: 10
+  partition_strategy: "iid"  # or "non_iid", "by_class"
+
+# Model Architecture
+model:
+  type: "mlp"
+  layers: [30, 64, 32, 2]
+  activation: "relu"
+  dropout: 0.2
+
+# Training Hyperparameters
+training:
+  # FL rounds
+  num_rounds: 100
+
+  # Local training
+  local_epochs: 5
+  batch_size: 256
+
+  # Optimizer
+  optimizer: "adam"
+  learning_rate: 0.001
+  weight_decay: 0.0001
+
+  # Fraction of clients per round
+  fraction_fit: 0.5
+  min_fit_clients: 5
+  min_available_clients: 10
+
+# Evaluation
+evaluation:
+  # Validation frequency
+  every_n_rounds: 5
+
+  # Metrics to track
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - auc_roc
+
+  # Test set size
+  test_fraction: 0.2
+
+# Compression Experiments
+experiments:
+  # Baseline (no compression)
+  baseline:
+    enabled: true
+    name: "baseline"
+
+  # Sparsification experiments
+  sparsification:
+    enabled: true
+    methods:
+      - name: "top_k_1pct"
+        type: "top_k"
+        k_percentage: 1.0
+      - name: "top_k_5pct"
+        type: "top_k"
+        k_percentage: 5.0
+      - name: "top_k_10pct"
+        type: "top_k"
+        k_percentage: 10.0
+      - name: "top_k_20pct"
+        type: "top_k"
+        k_percentage: 20.0
+      - name: "random_k_10pct"
+        type: "random_k"
+        k_percentage: 10.0
+
+  # Quantization experiments
+  quantization:
+    enabled: true
+    methods:
+      - name: "quantize_8bit"
+        type: "quantize_8bit"
+      - name: "quantize_4bit"
+        type: "quantize_4bit"
+      - name: "stochastic_4bit"
+        type: "stochastic_quantize"
+        bits: 4
+
+  # Error feedback experiments
+  error_feedback:
+    enabled: true
+    compare_with_without: true
+
+# Bandwidth Simulation
+bandwidth:
+  # Network bandwidth (Mbps)
+  uplink_mbps: 10    # Client -> server
+  downlink_mbps: 100 # Server -> client
+
+  # Cost per GB
+  cost_per_gb: 0.01
+
+# Reproducibility
+reproducibility:
+  random_seed: 42
+
+  # Save model checkpoints
+  save_checkpoints: true
+  checkpoint_dir: "checkpoints"
+
+  # Save logs
+  log_dir: "logs"
+  log_level: "INFO"
+
+# Output
+output:
+  results_dir: "data/results"
+  plot_dir: "data/plots"
+  report_dir: "data/reports"

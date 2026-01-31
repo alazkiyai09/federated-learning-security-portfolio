@@ -1,0 +1,17 @@
+# IID Data Partition Configuration
+# @package data
+
+partition_type: "iid"
+
+# For IID partitioning
+num_samples_per_client: null  # null = auto-balance
+shuffle: true
+seed: 42
+
+# Validation split
+val_split: 0.2
+
+# Data-specific settings
+# For credit card fraud detection
+class_balance: "balanced"  # balanced, imbalanced
+fraud_ratio: 0.01  # Expected fraud ratio (used only if generating synthetic data)

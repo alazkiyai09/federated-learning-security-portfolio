@@ -1,0 +1,195 @@
+# Bank profiles for realistic cross-silo federated learning simulation
+# Based on industry characteristics of different banking institutions
+
+banks:
+  Bank_A:
+    name: "Large Retail Bank"
+    bank_type: "retail"
+    description: "High-volume retail bank with diverse customer base"
+
+    # Customer demographics
+    n_clients: 500000  # 500K customers
+    age_distribution: {mean: 45, std: 15}  # Wide age range
+    income_distribution: {mean: 65000, std: 35000}  # Diverse income
+
+    # Transaction characteristics
+    daily_transactions: 150000  # 150K daily transactions
+    transaction_amount:
+      mean: 75
+      std: 150
+      min: 1
+      max: 5000
+
+    # Fraud characteristics (diverse patterns)
+    fraud_rate: 0.0025  # 0.25% base fraud rate
+    fraud_types:
+      card_present: 0.35
+      card_not_present: 0.65
+      account_takeover: 0.10
+      application_fraud: 0.15
+
+    # Merchant categories (retail focus)
+    merchant_distribution:
+      retail: 0.35
+      groceries: 0.20
+      restaurants: 0.15
+      gas_stations: 0.12
+      online: 0.18
+
+    # Geographic distribution
+    regions: ["Northeast", "Midwest", "South", "West"]
+    international_ratio: 0.08  # 8% international
+
+  Bank_B:
+    name: "Regional Bank"
+    bank_type: "regional"
+    description: "Medium-sized regional bank with local focus"
+
+    n_clients: 80000  # 80K customers
+    age_distribution: {mean: 52, std: 12}  # Older customer base
+    income_distribution: {mean: 55000, std: 25000}  # Moderate income
+
+    daily_transactions: 25000  # 25K daily transactions
+    transaction_amount:
+      mean: 85
+      std: 120
+      min: 5
+      max: 3000
+
+    # Local fraud patterns
+    fraud_rate: 0.0018  # 0.18% fraud rate
+    fraud_types:
+      card_present: 0.50  # More local/in-person
+      card_not_present: 0.50
+      account_takeover: 0.05
+      application_fraud: 0.08
+
+    merchant_distribution:
+      retail: 0.30
+      groceries: 0.25
+      restaurants: 0.18
+      gas_stations: 0.15
+      online: 0.12
+
+    regions: ["Midwest"]
+    international_ratio: 0.03  # 3% international
+
+  Bank_C:
+    name: "Digital-Only Bank"
+    bank_type: "digital"
+    description: "Neobank with high fraud rate from synthetic identities"
+
+    n_clients: 120000  # 120K customers
+    age_distribution: {mean: 32, std: 10}  # Younger demographic
+    income_distribution: {mean: 48000, std: 20000}  # Lower income
+
+    daily_transactions: 45000  # 45K daily transactions
+    transaction_amount:
+      mean: 45
+      std: 80
+      min: 1
+      max: 1500
+
+    # High synthetic identity fraud
+    fraud_rate: 0.0080  # 0.8% fraud rate (very high)
+    fraud_types:
+      card_present: 0.05  # Almost entirely digital
+      card_not_present: 0.95
+      account_takeover: 0.25
+      synthetic_identity: 0.40  # Unique to digital banks
+
+    merchant_distribution:
+      retail: 0.10
+      groceries: 0.08
+      restaurants: 0.12
+      online: 0.70  # Heavy online focus
+
+    regions: ["West", "Northeast"]  # Tech hubs
+    international_ratio: 0.05
+
+  Bank_D:
+    name: "Credit Union"
+    bank_type: "credit_union"
+    description: "Member-focused with low volume and high trust"
+
+    n_clients: 35000  # 35K members
+    age_distribution: {mean: 48, std: 14}
+    income_distribution: {mean: 52000, std: 22000}
+
+    daily_transactions: 8000  # 8K daily transactions (low volume)
+    transaction_amount:
+      mean: 95
+      std: 100
+      min: 10
+      max: 2000
+
+    # Low fraud due to member relationships
+    fraud_rate: 0.0010  # 0.1% fraud rate (lowest)
+    fraud_types:
+      card_present: 0.60  # High in-person
+      card_not_present: 0.40
+      account_takeover: 0.03
+      internal_fraud: 0.05  # Member fraud
+
+    merchant_distribution:
+      retail: 0.25
+      groceries: 0.30
+      restaurants: 0.20
+      gas_stations: 0.15
+      online: 0.10
+
+    regions: ["South", "Midwest"]
+    international_ratio: 0.02
+
+  Bank_E:
+    name: "International Bank"
+    bank_type: "international"
+    description: "Global bank with cross-border fraud patterns"
+
+    n_clients: 300000  # 300K customers
+    age_distribution: {mean: 42, std: 16}
+    income_distribution: {mean: 85000, std: 45000}  # Higher income
+
+    daily_transactions: 90000  # 90K daily transactions
+    transaction_amount:
+      mean: 150
+      std: 250
+      min: 5
+      max: 10000  # Larger amounts
+
+    # Cross-border fraud patterns
+    fraud_rate: 0.0035  # 0.35% fraud rate
+    fraud_types:
+      card_present: 0.25
+      card_not_present: 0.75
+      account_takeover: 0.15
+      cross_border_fraud: 0.30  # Unique to international
+      money_laundering: 0.10
+
+    merchant_distribution:
+      retail: 0.20
+      groceries: 0.15
+      restaurants: 0.15
+      travel: 0.20  # High travel spending
+      luxury: 0.10
+      online: 0.20
+
+    regions: ["Northeast", "West", "International"]
+    international_ratio: 0.35  # 35% international (highest)
+
+# Global settings
+label_quality:
+  Bank_A: 0.92  # 92% accurate labels
+  Bank_B: 0.88
+  Bank_C: 0.78  # Lower quality (harder to detect synthetic fraud)
+  Bank_D: 0.95  # Highest quality (member relationships)
+  Bank_E: 0.85
+
+data_quality:
+  feature_completeness:
+    Bank_A: 0.95
+    Bank_B: 0.90
+    Bank_C: 0.85
+    Bank_D: 0.98
+    Bank_E: 0.92
+  temporal_coverage_days: 30
