@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: SignGuard: Cryptographic Signature-Based Defense for Federated Learning
+message: If you use this software, please cite it as below.
+type: software
+authors:
+  - given-names: Research
+    family-names: Author
+    email: researcher@university.edu
+    affiliation: University Name
+version: 0.1.0
+date-released: 2024-01-28
+url: https://github.com/username/signguard
+repository-code: https://github.com/username/signguard
+license: MIT
+keywords:
+  - federated learning
+  - adversarial machine learning
+  - cryptography
+  - anomaly detection
+  - robust aggregation

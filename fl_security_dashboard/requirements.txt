@@ -1,0 +1,29 @@
+# FL Security Dashboard Requirements
+
+# Core Framework
+streamlit>=1.28.0
+plotly>=5.17.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Data Validation
+pydantic>=2.0.0
+
+# Async/Real-time (for future WebSocket implementation)
+websockets>=11.0.0
+aiohttp>=3.8.0
+
+# Caching/Messaging
+redis>=5.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Deployment
+gunicorn>=21.0.0
+
+# Utilities
+python-dotenv>=1.0.0

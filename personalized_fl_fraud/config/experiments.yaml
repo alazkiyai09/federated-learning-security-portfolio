@@ -1,0 +1,68 @@
+# Experiment Configuration Matrix
+# Defines experimental parameters for comparing personalization methods
+
+experiment:
+  name: "personalized_fl_fraud_comparison"
+  description: "Compare 4 personalization methods on non-IID fraud detection"
+
+# Data configuration
+data:
+  n_clients: 10              # Number of banks/clients
+  test_size: 0.2             # Holdout test set size
+  val_size: 0.1              # Validation set size (for hyperparameter tuning)
+  batch_size: 32             # Local training batch size
+  fraud_ratio: 0.05          # Synthetic data fraud ratio (5%)
+
+# Non-IID partitioning settings (using Day 9 partitioner)
+partitioning:
+  strategy: "label_skew"     # Options: label_skew, quantity_skew, feature_skew
+  alpha_values: [0.1, 0.5, 1.0, 10.0]  # Dirichlet concentration (lower = more non-IID)
+  min_samples_per_client: 50 # Ensure each client has minimum data
+
+# Federated learning settings
+federated:
+  n_rounds: 100              # Total communication rounds
+  fraction_fit: 0.8          # Fraction of clients participating each round
+  min_fit_clients: 6         # Minimum clients per round
+  min_available_clients: 8   # Minimum available clients
+  local_epochs: 5            # Local epochs per communication round
+
+# Model architecture
+model:
+  input_dim: 20              # Will be set based on actual data
+  hidden_dims: [64, 32, 16]  # MLP hidden layers
+  dropout: 0.2
+  batch_norm: true
+
+# Training hyperparameters
+training:
+  learning_rate: 0.01
+  optimizer: "adam"          # Options: adam, adamw, sgd
+  weight_decay: 1e-5
+  early_stopping_patience: 10
+
+# Compute budget for fair comparison
+compute_budget:
+  max_flops_per_client: 1e9  # Maximum FLOPs budget per client per round
+  track_communication: true   # Track bytes transferred
+
+# Evaluation settings
+evaluation:
+  metrics:
+    - "auc"                  # ROC AUC
+    - "pr_auc"               # Precision-Recall AUC
+    - "recall_at_fpr_1pct"   # Recall at 1% FPR
+    - "f1_score"             # F1 score
+  evaluate_every_n_rounds: 5 # Evaluate on global model every N rounds
+
+# Reproducibility
+reproducibility:
+  random_state: 42
+  deterministic: true        # Use deterministic algorithms
+  checkpoint_every_n_rounds: 20
+
+# Logging
+logging:
+  level: "INFO"              # DEBUG, INFO, WARNING, ERROR
+  tensorboard: false         # Enable TensorBoard logging
+  wandb: false               # Enable Weights & Biases logging

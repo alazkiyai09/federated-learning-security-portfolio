@@ -1,0 +1,33 @@
+# Vertical Federated Learning Model Configuration
+
+# Party A (Transaction features)
+party_a:
+  input_dim: 7  # Transaction features
+  embedding_dim: 16
+  hidden_dims: [32, 24]
+  activation: "ReLU"
+  dropout: 0.2
+
+# Party B (Credit features)
+party_b:
+  input_dim: 3  # Credit features
+  embedding_dim: 8
+  hidden_dims: [16, 12]
+  activation: "ReLU"
+  dropout: 0.2
+
+# Server (Top model)
+server:
+  input_dim: 24  # 16 (party A) + 8 (party B)
+  hidden_dims: [32, 16]
+  output_dim: 2  # Binary classification
+  activation: "ReLU"
+  output_activation: "Softmax"
+  dropout: 0.3
+
+# Training parameters
+training:
+  batch_size: 256
+  learning_rate: 0.001
+  optimizer: "Adam"
+  weight_decay: 1e-5

@@ -1,0 +1,47 @@
+# Compression hyperparameters for communication-efficient FL
+
+# Top-K Sparsification
+top_k:
+  # Percentage of gradients to keep (1, 5, 10, 20, 50)
+  percentages: [1, 5, 10, 20, 50]
+
+  # Absolute K values (if not using percentage)
+  # k_values: [100, 500, 1000, 5000, 10000]
+
+# Random-K Sparsification (baseline)
+random_k:
+  percentages: [1, 5, 10, 20, 50]
+
+# Threshold Sparsification
+threshold:
+  # Threshold values (relative to max gradient magnitude)
+  values: [0.01, 0.05, 0.1, 0.2, 0.5]
+
+# Quantization
+quantization:
+  # Bits for quantization
+  bits: [4, 8]
+
+  # Use stochastic rounding
+  stochastic: true
+
+# Error Feedback
+error_feedback:
+  enabled: true
+
+  # Reset residual frequency (0 = never, 1 = every round, etc.)
+  reset_frequency: 0
+
+# Combined Techniques
+combined:
+  # Sparsification + Quantization
+  enable: true
+
+  # Combinations to try
+  combinations:
+    - sparsify: top_k_1pct
+      quantize: 8bit
+    - sparsify: top_k_5pct
+      quantize: 8bit
+    - sparsify: top_k_10pct
+      quantize: 4bit

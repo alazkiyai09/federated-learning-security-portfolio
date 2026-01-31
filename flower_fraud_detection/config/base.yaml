@@ -1,0 +1,45 @@
+# Base Hydra Configuration for Flower Fraud Detection
+# @package _global_
+
+defaults:
+  - strategy: fedavg
+  - data: iid
+
+# Experiment settings
+experiment_name: "flower_fraud_detection"
+seed: 42
+device: "cuda"  # or "cpu"
+
+# Data settings
+num_clients: 10
+client_batch_size: 32
+num_classes: 2
+
+# Model architecture
+input_dim: 30  # Will be updated based on actual data
+hidden_dims: [64, 32, 16]
+
+# Training hyperparameters
+local_epochs: 5
+learning_rate: 0.01
+optimizer: "adam"  # adam, sgd, adamw
+
+# Federated learning settings
+num_rounds: 20
+fraction_fit: 1.0  # Fraction of clients to sample for training
+fraction_evaluate: 0.5  # Fraction of clients to sample for evaluation
+min_fit_clients: 2
+min_evaluate_clients: 2
+min_available_clients: 2
+
+# Server address (for distributed mode)
+server_address: "[::]:8080"
+
+# Logging
+log_dir: "./logs"
+tensorboard: true
+verbose: true
+
+# Output
+results_dir: "./results"
+save_model: true

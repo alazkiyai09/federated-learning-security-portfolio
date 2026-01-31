@@ -1,0 +1,32 @@
+# Flower Framework (>= 1.5 as required)
+flwr>=1.11.0
+
+# PyTorch and dependencies
+torch>=2.0.0
+numpy>=1.24.0
+
+# Hydra Configuration
+hydra-core>=1.3.0
+omegaconf>=2.3.0
+
+# Data handling
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# TensorBoard logging
+tensorboard>=2.13.0
+torch-tb-profiler>=0.4.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Utilities
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+
+# Ray for Flower simulation
+ray>=2.0.0
+
+# SciPy for statistical distributions (Dirichlet partitioner)
+scipy>=1.10.0

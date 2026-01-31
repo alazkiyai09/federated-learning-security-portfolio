@@ -1,0 +1,27 @@
+# Non-IID Data Partition Configuration
+# @package data
+
+partition_type: "non_iid"
+
+# Non-IID partitioning strategy
+# Options: "dirichlet", "label_skew", "quantity_skew", "pathological"
+partition_strategy: "dirichlet"
+
+# Dirichlet partition parameters
+alpha: 0.5  # Lower = more skewed (0.1 = very skewed, 10.0 = nearly IID)
+# Recommended values:
+# - alpha = 0.1: Extremely non-IID (each client has very different distribution)
+# - alpha = 0.5: Moderately non-IID (realistic scenario)
+# - alpha = 1.0: Mildly non-IID
+# - alpha = 10.0: Nearly IID
+
+# Label skew settings (if using label_skew strategy)
+num_labels_per_client: 2  # Number of classes each client has
+
+# Quantity skew settings (if using quantity_skew strategy)
+quantity_skew_factor: 0.3  # Higher = more variation in client data sizes
+
+# Validation split
+val_split: 0.2
+shuffle: true
+seed: 42

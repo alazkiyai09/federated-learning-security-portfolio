@@ -1,0 +1,20 @@
+# FedAvg Strategy Configuration
+# @package strategy
+
+strategy_name: "fedavg"
+
+# FedAvg hyperparameters
+# Standard FedAvg with weighted aggregation
+
+# Server-side learning rate (for adaptive strategies, not used in standard FedAvg)
+server_learning_rate: 1.0
+
+# Acceptable failure rate for clients
+accept_failures: true
+
+# Fit metrics aggregation method
+fit_metrics_aggregation: ["weighted_average"]
+evaluate_metrics_aggregation: ["weighted_average"]
+
+# Initial parameters (optional)
+initial_parameters: null

@@ -1,0 +1,54 @@
+# Federated Learning Simulation Configuration
+
+# Experiment settings
+experiment:
+  seed: 42
+  n_days_data: 30  # Generate 30 days of transaction data
+  test_size: 0.20
+  validation_size: 0.10
+
+# Federated learning parameters
+federation:
+  n_rounds: 15
+  n_clients_per_round: 5  # All banks participate each round
+  local_epochs: 3
+  batch_size: 256
+
+# Model architecture
+model:
+  input_dim: 25  # Will be calculated from features
+  embedding_dims:
+    merchant_category: 8
+    region: 4
+    card_type: 4
+    timeOfDay: 4
+  hidden_layers: [128, 64, 32]
+  dropout: 0.3
+  output_dim: 1
+
+# Training hyperparameters
+training:
+  learning_rate: 0.001
+  weight_decay: 1.0e-05
+  optimizer: "Adam"
+  loss_function: "BCEWithLogitsLoss"
+  early_stopping_patience: 5
+
+# Evaluation metrics
+metrics:
+  primary: "auc_roc"
+  additional: ["precision", "recall", "f1", "accuracy"]
+  threshold: 0.5
+
+# Secure aggregation simulation
+secure_aggregation:
+  enabled: true
+  masking_bits: 32
+  n_dummy_updates: 2
+
+# Output settings
+output:
+  save_models: true
+  save_predictions: true
+  generate_plots: true
+  save_per_bank_metrics: true

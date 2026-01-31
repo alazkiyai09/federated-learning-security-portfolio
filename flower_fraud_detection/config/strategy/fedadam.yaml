@@ -1,0 +1,24 @@
+# FedAdam Strategy Configuration
+# @package strategy
+
+strategy_name: "fedadam"
+
+# FedAdam hyperparameters
+# Tau: momentum parameter for server optimizer (higher = more momentum)
+# Typical values: 0.9, 0.99, 0.999
+tau: 0.9
+
+# Eta: learning rate for server optimizer (adaptive learning rate)
+# Typical values: 0.001, 0.01, 0.1
+eta: 0.01
+
+# You can experiment with different combinations:
+# - tau=0.9, eta=0.01: Default, good balance
+# - tau=0.99, eta=0.001: Very adaptive, slower updates
+# - tau=0.9, eta=0.1: Faster convergence, less stable
+
+server_learning_rate: 1.0
+accept_failures: true
+fit_metrics_aggregation: ["weighted_average"]
+evaluate_metrics_aggregation: ["weighted_average"]
+initial_parameters: null
