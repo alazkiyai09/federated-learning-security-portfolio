@@ -1,6 +1,7 @@
-[pytest]
-# Pytest configuration for Cross-Silo Bank FL
+# Standard Pytest Configuration Template
+# Copy this file to project root and customize as needed
 
+[pytest]
 # Test discovery patterns
 python_files = test_*.py
 python_classes = Test*
@@ -10,6 +11,11 @@ python_functions = test_*
 testpaths = tests
 
 # Output options
+# -v: verbose output
+# --strict-markers: error on unknown markers
+# --tb=short: shorter traceback format
+# --cov: enable coverage (install pytest-cov)
+# --cov-report: coverage report formats
 addopts =
     -v
     --strict-markers
@@ -19,11 +25,14 @@ addopts =
     --cov-report=html:htmlcov
     --cov-fail-under=70
 
-# Markers
+# Standard markers for categorizing tests
 markers =
     slow: marks tests as slow (deselect with '-m "not slow"')
     integration: marks tests as integration tests
     unit: marks tests as unit tests
+    security: marks tests as security-focused tests
+    requires_gpu: marks tests that require GPU hardware
+    requires_dataset: marks tests that require datasets to be downloaded
 
 # Coverage options
 [coverage:run]
@@ -31,6 +40,7 @@ source = src
 omit =
     */tests/*
     */__init__.py
+    */conftest.py
 
 [coverage:report]
 exclude_lines =
@@ -40,3 +50,4 @@ exclude_lines =
     raise NotImplementedError
     if __name__ == .__main__.:
     if TYPE_CHECKING:
+    @abstractmethod

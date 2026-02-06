@@ -151,7 +151,7 @@ def run_mnist_experiment(
                 'test_accuracy': round_metrics['test_accuracy']
             },
             num_clients=len(selected_clients),
-            total_samples=sum(client_updates[c.client_id][1] for c in selected_clients)
+            total_samples=sum(c.num_samples for c in selected_clients)
         )
 
         # Print progress every 5 rounds

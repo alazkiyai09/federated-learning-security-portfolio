@@ -7,7 +7,7 @@ Implements t-of-n threshold secret sharing where:
 """
 
 from typing import List, Tuple
-import random
+import secrets
 
 
 def split_secret(
@@ -43,10 +43,10 @@ def split_secret(
     if secret >= prime:
         raise ValueError("Secret must be less than prime modulus")
 
-    # Generate random polynomial coefficients
+    # Generate cryptographically secure random polynomial coefficients
     # f(x) = secret + a_1*x + a_2*x^2 + ... + a_{t-1}*x^{t-1}
     # Coefficients must be non-zero for proper interpolation
-    coefficients = [secret] + [random.randint(1, prime - 1) for _ in range(threshold - 1)]
+    coefficients = [secret] + [secrets.randbelow(prime - 1) + 1 for _ in range(threshold - 1)]
 
     # Generate shares at distinct x values (x = 1, 2, ..., n)
     # We use 1-indexed shares because f(0) = secret (the constant term)
