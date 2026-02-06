@@ -141,10 +141,22 @@ federated-learning-security-portfolio/
 ## 📖 Code Review Summary
 
 **Comprehensive Review**: [`CODE_REVIEW_RESULTS.md`](./CODE_REVIEW_RESULTS.md)
+**Security Audit**: [`SECURITY_AUDIT_REPORT.md`](./SECURITY_AUDIT_REPORT.md)
+
+### Recent Improvements (2025-02-06):
+- ✅ Fixed bare except clauses in client code
+- ✅ Replaced `random` with `secrets` for cryptographic operations
+- ✅ Added numpy import for client binary evaluation
+- ✅ Fixed runtime crash bug in FedAvg experiment
+- ✅ Removed wildcard CORS and default API keys
+- ✅ Standardized testing infrastructure with pytest templates
+- ✅ Created unified BaseAttack interface for adversarial attacks
+- ✅ Added missing README for DP Federated Learning project
+- ✅ Comprehensive STRIDE security audit completed
 
 ### Key Findings:
 - ✅ **0 Critical Issues** (all fixed)
-- ✅ **0 Minor Issues**
+- ✅ **2 HIGH Issues Fixed** (CORS, crypto randomness)
 - ✅ **Production-Ready Code**: Proper type hints, docstrings, error handling
 - ✅ **165,000+ Lines of Code**
 - ✅ **Comprehensive Testing**: Unit + integration tests
@@ -152,8 +164,8 @@ federated-learning-security-portfolio/
 ### Quality Metrics:
 - **Type Hints**: 100% coverage
 - **Docstrings**: 100% coverage
-- **Error Handling**: Edge cases validated
-- **Security**: No vulnerabilities found
+- **Error Handling**: Edge cases validated, specific exception handling
+- **Security**: STRIDE audit completed, critical issues fixed
 - **Performance**: Optimized with vectorization
 
 ---
@@ -201,9 +213,53 @@ This portfolio is for educational and research purposes.
 
 ## 👤 Author
 
-**Alazkiyai Ahmed**
-- GitHub: [@alazkiyai09](https://github.com/alazkiyai09)
-- Email: ahmadalazkiyai@gmail.com
+### Alazkiyai Ahmed
+
+**Federated Learning Security Researcher | ML Engineer | Fraud Detection Specialist**
+
+A security-focused machine learning engineer specializing in federated learning systems, adversarial attacks, and privacy-preserving AI. Built 30 production-ready projects demonstrating expertise in FL security, differential privacy, and robust aggregation protocols.
+
+---
+
+### 📞 Contact
+
+**Let's build secure federated learning systems together!**
+
+[![Email](https://img.shields.io/badge/Email-Contact_Me-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ahmadalazkiyai@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/alazkiyai-ahmed)
+[![GitHub](https://img.shields.io/badge/GitHub-View_Profile-black?style=for-thebadge&logo=github&logoColor=white)](https://github.com/alazkiyai09)
+
+**📍 Location: Open to Remote**
+**💼 Open to: Full-time, Contract, Research Collaboration**
+
+---
+
+### 💼 Why This Portfolio?
+
+#### Production-Ready Research
+
+I don't just implement algorithms—I deliver **research-grade implementations** with:
+
+- Novel contributions (SignGuard: ECDSA-based FL defense)
+- Comprehensive experiments for publication
+- Security-hardened code with STRIDE analysis
+- Reproducible results with proper documentation
+
+#### Core Competencies Demonstrated
+
+| Area | Skills Showcased |
+|------|------------------|
+| **FL Security** | Byzantine robustness, secure aggregation, DP |
+| **Attack Research** | Backdoor, model poisoning, gradient leakage |
+| **Defense Systems** | Krum, FoolsGold, SignGuard, anomaly detection |
+| **Cryptography** | ECDSA signatures, secret sharing, MPC |
+| **ML Engineering** | PyTorch, Flower, production deployment |
+
+---
+
+**⭐ Star this repository if you find it helpful!**
+
+Made with ❤️ by [Alazkiyai Ahmed](https://github.com/alazkiyai09)
 
 ---
 
