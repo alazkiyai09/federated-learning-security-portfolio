@@ -28,8 +28,8 @@ class Settings(BaseSettings):
     redis_db: int = Field(default=0, alias="REDIS_DB")
     cache_ttl_seconds: int = Field(default=300, alias="CACHE_TTL_SECONDS")
 
-    # Security
-    api_keys: list[str] = Field(default=["test-key-dev"], alias="API_KEYS")
+    # Security - WARNING: No default API keys for production. Set via API_KEYS env variable.
+    api_keys: list[str] = Field(default=[], alias="API_KEYS")
     rate_limit_requests: int = Field(default=100, alias="RATE_LIMIT_REQUESTS")
     rate_limit_window_seconds: int = Field(default=60, alias="RATE_LIMIT_WINDOW_SECONDS")
 

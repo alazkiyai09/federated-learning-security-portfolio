@@ -58,12 +58,14 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
-    # Add CORS middleware
+    # Add CORS middleware - WARNING: Configure allow_origins for production!
+    # For development, localhost origins are allowed. For production, specify exact origins.
+    cors_origins = settings.backend_cors_aliases if hasattr(settings, 'backend_cors_aliases') else ["http://localhost:3000", "http://localhost:8080"]
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # Configure appropriately for production
+        allow_origins=cors_origins,
         allow_credentials=True,
-        allow_methods=["*"],
+        allow_methods=["GET", "POST"],
         allow_headers=["*"],
     )
 

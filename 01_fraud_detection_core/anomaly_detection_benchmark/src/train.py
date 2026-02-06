@@ -226,7 +226,8 @@ def save_results(
     all_results: List[Dict],
     results_dir: str,
     y_test: np.ndarray,
-    feature_names: List[str]
+    feature_names: List[str],
+    config: Dict = None
 ) -> None:
     """
     Save results to disk.
@@ -236,6 +237,7 @@ def save_results(
         results_dir: Directory to save results.
         y_test: Test labels.
         feature_names: Feature names.
+        config: Configuration dictionary (for data paths).
     """
     results_path = Path(results_dir)
     results_path.mkdir(parents=True, exist_ok=True)
@@ -272,19 +274,24 @@ def save_results(
         save_path=str(results_path / f"pr_curve_{timestamp}.png")
     )
 
-    # Save failure analysis
-    predictions_dict = {
-        result['model']: result['predictions']
-        for result in all_results
-    }
-    comparison = compare_model_failures(
-        np.load(Path(config['data']['processed_path']).replace('processed', 'raw') / "X_test.npy"),
-        y_test,
-        predictions_dict,
-        scores_dict,
-        feature_names
-    )
-    comparison.to_csv(results_path / f"failure_comparison_{timestamp}.csv", index=False)
+    # Save failure analysis (skip if config not provided)
+    if config is not None and 'data' in config:
+        predictions_dict = {
+            result['model']: result['predictions']
+            for result in all_results
+        }
+        try:
+            x_test_path = Path(config['data']['processed_path']).parent / "raw" / "X_test.npy"
+            comparison = compare_model_failures(
+                np.load(x_test_path),
+                y_test,
+                predictions_dict,
+                scores_dict,
+                feature_names
+            )
+            comparison.to_csv(results_path / f"failure_comparison_{timestamp}.csv", index=False)
+        except (FileNotFoundError, KeyError) as e:
+            print(f"Skipping failure analysis: {e}")
 
     print(f"All results saved to {results_dir}")
 
@@ -373,7 +380,8 @@ def main(args):
         all_results,
         args.results_dir,
         y_test,
-        feature_names
+        feature_names,
+        config
     )
 
     # Print summary

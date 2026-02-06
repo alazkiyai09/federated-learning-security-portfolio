@@ -216,7 +216,8 @@ def compute_validation_metrics(
     # AUC-ROC
     try:
         auc = roc_auc_score(y_true, y_pred_proba)
-    except:
+    except (ValueError, IndexError) as e:
+        # Handle edge cases like single class in y_true
         auc = 0.0
 
     # F1 score

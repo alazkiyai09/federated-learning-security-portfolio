@@ -9,6 +9,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from typing import Dict, Tuple, Optional
 from tqdm import tqdm
+import numpy as np
 
 from src.utils import serialize_weights, deserialize_weights, create_optimizer
 
@@ -277,7 +278,8 @@ class FederatedClientBinary(FederatedClient):
         try:
             from sklearn.metrics import average_precision_score
             auc_pr = average_precision_score(all_targets, all_preds)
-        except:
+        except (ImportError, ValueError) as e:
+            # Log warning but don't fail - auc_pr is optional metric
             auc_pr = 0.0
 
         metrics = {

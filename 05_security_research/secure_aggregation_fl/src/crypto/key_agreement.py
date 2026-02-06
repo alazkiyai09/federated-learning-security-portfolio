@@ -6,7 +6,7 @@ to establish shared secrets for seed encryption.
 """
 
 from typing import Dict, List, Tuple
-import random
+import secrets
 
 
 def generate_dh_keypair(prime: int, generator: int) -> Tuple[int, int]:
@@ -22,8 +22,8 @@ def generate_dh_keypair(prime: int, generator: int) -> Tuple[int, int]:
         - private_key: Random value in [1, prime-2]
         - public_key: generator^private_key mod prime
     """
-    # Private key: random value in [1, prime-2]
-    private_key = random.randint(1, prime - 2)
+    # Private key: cryptographically secure random value in [1, prime-2]
+    private_key = secrets.randbelow(prime - 2) + 1
 
     # Public key: g^private mod p
     public_key = pow(generator, private_key, prime)
