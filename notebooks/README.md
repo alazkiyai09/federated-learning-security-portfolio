@@ -237,7 +237,7 @@ We recommend following this sequence:
 These notebooks are part of the 30-Day Federated Learning Security Portfolio.
 
 For questions or feedback:
-- **Email**: ahmadalazkiyai@gmail.com
+- **Email**: azka.alazkiyai@outlook.com
 - **GitHub**: [@alazkiyai09](https://github.com/alazkiyai09)
 
 ---
