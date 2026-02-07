@@ -228,7 +228,7 @@ A security-focused machine learning engineer specializing in federated learning 
 ### 📞 Contact
 
 [![Email](https://img.shields.io/badge/Email-Contact_Me-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:azka.alazkiyai@outlook.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/alazkiyai-ahmed)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/azka-alazkiyai/)
 [![GitHub](https://img.shields.io/badge/GitHub-View_Profile-black?style=for-thebadge&logo=github&logoColor=white)](https://github.com/alazkiyai09)
 
 **📍 Location: Jakarta, Indonesia (Open to Remote)**
