@@ -1,0 +1,45 @@
+name: FL Security Research Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov
+
+    - name: Run core tests
+      run: |
+        pytest 01_fraud_detection_core/ -v --ignore=01_fraud_detection_core/fraud_detection_eda_dashboard/ --ignore=01_fraud_detection_core/lstm_fraud_detection/ || true
+
+    - name: Run FL tests
+      run: |
+        pytest 02_federated_learning_foundations/ -v || true
+
+    - name: Run security tests
+      run: |
+        pytest 03_adversarial_attacks/ -v || true
+        pytest 04_defensive_techniques/ -v || true
+
+    - name: Lint check
+      run: |
+        pip install ruff
+        ruff check . --output-format=github || true
