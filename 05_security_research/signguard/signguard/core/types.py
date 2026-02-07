@@ -80,12 +80,14 @@ class SignedUpdate:
         signature: Base64-encoded ECDSA signature
         public_key: Base64-encoded public key
         algorithm: Signature algorithm (default: ECDSA)
+        nonce: Server-provided nonce for replay protection
     """
 
     update: ModelUpdate
     signature: str
     public_key: str
     algorithm: str = "ECDSA"
+    nonce: Optional[str] = None
 
     def is_valid_signature(self) -> bool:
         """Check if signature format is valid.

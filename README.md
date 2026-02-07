@@ -1,21 +1,25 @@
 # Federated Learning Security Portfolio
 
-**30-Day Project Portfolio**: Fraud Detection & Federated Learning Security Research
+**Educational Portfolio**: Federated Learning Security Research Implementation
 
-A comprehensive portfolio demonstrating federated learning security with attacks, defenses, and privacy-preserving techniques.
+A learning portfolio demonstrating federated learning security concepts with implementations of attacks, defenses, and privacy-preserving techniques.
+
+**Note**: The original development followed a structured learning path organized into categories. This is an educational portfolio showcasing implementations of established research.
+
+A learning portfolio demonstrating federated learning security concepts with implementations of attacks, defenses, and privacy-preserving techniques.
+
+**Note**: This is an educational portfolio showcasing implementations of established research. The SignGuard component combines standard ECDSA signatures with reputation-based aggregation for demonstration purposes.
 
 ## 📊 Portfolio Overview
 
-| Category | Projects | Avg Score |
+| Category | Projects | Status |
 |----------|----------|-----------|
-| Fraud Detection Core | 7 | 9.6/10 |
-| FL Foundations | 8 | 9.5/10 |
-| Adversarial Attacks | 3 | 9.3/10 |
-| Defensive Techniques | 5 | 9.7/10 |
-| Security Research | 7 | 10/10 |
-| **TOTAL** | **30** | **9.6/10** |
-
-**Implementation Status**: 30/30 projects (100%) | **Issues**: 0 ✅
+| Fraud Detection Core | 7 | ✅ Complete |
+| FL Foundations | 8 | ✅ Complete |
+| Adversarial Attacks | 3 | ✅ Complete |
+| Defensive Techniques | 5 | ✅ Complete |
+| Security Research | 7 | ✅ Complete |
+| **TOTAL** | **30** | **100% Complete** |
 
 ## 🗂️ Project Structure
 
@@ -109,19 +113,19 @@ federated-learning-security-portfolio/
 
 **Link**: [`05_security_research/`](./05_security_research/)
 
-## 🏆 Core Research Contribution
+## 🏆 Featured Component: SignGuard
 
 ### SignGuard: Cryptographic Signature-Based Defense (Day 24)
 
-**Novel Contribution**: Multi-layer federated learning defense system combining:
+**Implementation**: A multi-layer federated learning defense system combining:
 - ✅ ECDSA digital signatures (P-256 curve, 128-bit security)
 - ✅ Multi-factor anomaly detection (magnitude + direction + loss)
 - ✅ Time-decay reputation system with adaptive weights
 - ✅ Reputation-weighted robust aggregation
 
-**Research-Ready**: Complete with experiments for publication (tables & figures)
-
 **Implementation**: [`05_security_research/signguard/`](./05_security_research/signguard/)
+
+**Note**: This is an educational implementation combining established techniques (ECDSA signatures, reputation systems, and robust aggregation) for demonstration purposes. For production use, consider dedicated FL security frameworks with formal verification.
 
 ---
 
@@ -213,28 +217,26 @@ This portfolio is for educational and research purposes.
 
 ## 👤 Author
 
-### Alazkiyai Ahmed
+### Ahmad Whafa Azka Al Azkiyai
 
 **Federated Learning Security Researcher | ML Engineer | Fraud Detection Specialist**
 
-A security-focused machine learning engineer specializing in federated learning systems, adversarial attacks, and privacy-preserving AI. Built 30 production-ready projects demonstrating expertise in FL security, differential privacy, and robust aggregation protocols.
+A security-focused machine learning engineer specializing in federated learning systems, adversarial attacks, and privacy-preserving AI. This portfolio demonstrates implementations of FL security techniques, differential privacy, and robust aggregation protocols.
 
 ---
 
 ### 📞 Contact
 
-**Let's build secure federated learning systems together!**
-
-[![Email](https://img.shields.io/badge/Email-Contact_Me-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ahmadalazkiyai@gmail.com)
+[![Email](https://img.shields.io/badge/Email-Contact_Me-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:azka.alazkiyai@outlook.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/alazkiyai-ahmed)
 [![GitHub](https://img.shields.io/badge/GitHub-View_Profile-black?style=for-thebadge&logo=github&logoColor=white)](https://github.com/alazkiyai09)
 
-**📍 Location: Open to Remote**
+**📍 Location: Jakarta, Indonesia (Open to Remote)**
 **💼 Open to: Full-time, Contract, Research Collaboration**
 
 ---
 
-### 💼 Why This Portfolio?
+### 💼 Portfolio Highlights
 
 #### Production-Ready Research
 
