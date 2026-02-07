@@ -27,19 +27,23 @@ jobs:
         pip install pytest pytest-cov
 
     - name: Run core tests
+      continue-on-error: true
       run: |
-        pytest 01_fraud_detection_core/ -v --ignore=01_fraud_detection_core/fraud_detection_eda_dashboard/ --ignore=01_fraud_detection_core/lstm_fraud_detection/ || true
+        pytest 01_fraud_detection_core/ -v --ignore=01_fraud_detection_core/fraud_detection_eda_dashboard/ --ignore=01_fraud_detection_core/lstm_fraud_detection/
 
     - name: Run FL tests
+      continue-on-error: true
       run: |
-        pytest 02_federated_learning_foundations/ -v || true
+        pytest 02_federated_learning_foundations/ -v
 
     - name: Run security tests
+      continue-on-error: true
       run: |
-        pytest 03_adversarial_attacks/ -v || true
-        pytest 04_defensive_techniques/ -v || true
+        pytest 03_adversarial_attacks/ -v
+        pytest 04_defensive_techniques/ -v
 
     - name: Lint check
+      continue-on-error: true
       run: |
         pip install ruff
-        ruff check . --output-format=github || true
+        ruff check . --output-format=github
