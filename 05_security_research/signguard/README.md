@@ -5,14 +5,14 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pytest](https://img.shields.io/badge/pytest-passing-green.svg)](https://github.com/pytest)
 
-**SignGuard** is a comprehensive defense mechanism for federated learning systems that combines:
+**SignGuard** is an educational implementation of a defense mechanism for federated learning systems that combines established techniques:
 
-- 🔐 **Cryptographic Authentication**: ECDSA signatures to verify client identities
+- 🔐 **Cryptographic Authentication**: ECDSA signatures (P-256) to verify client identities
 - 🎯 **Multi-factor Anomaly Detection**: L2 norm, cosine similarity, and loss deviation
-- ⭐ **Dynamic Reputation System**: Time-decay reputation with adaptive thresholds  
+- ⭐ **Dynamic Reputation System**: Time-decay reputation with adaptive thresholds
 - ⚖️ **Reputation-weighted Aggregation**: Robust aggregation based on trust scores
 
-SignGuard defends against Byzantine attacks including data poisoning, model poisoning, and backdoor attacks in federated learning environments, with particular focus on financial services and fraud detection applications.
+> **Note**: This is an educational portfolio project demonstrating the integration of cryptographic signatures, anomaly detection, and reputation systems for federated learning security. For production use, consider frameworks with formal security verification.
 
 ---
 

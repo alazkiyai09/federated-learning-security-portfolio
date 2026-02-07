@@ -3,7 +3,7 @@
 import os
 import json
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Union, List
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.backends import default_backend
 
@@ -15,7 +15,7 @@ class KeyManager:
 
     def __init__(
         self,
-        keys_dir: Path | str = "keys",
+        keys_dir: Union[Path, str] = "keys",
         signature_manager: Optional[SignatureManager] = None,
     ):
         """Initialize key manager.
@@ -32,16 +32,35 @@ class KeyManager:
         self,
         client_id: str,
         password: Optional[bytes] = None,
-    ) -> Tuple[str, str]:
+        require_encryption: bool = True,
+    ) -> Tuple[str, ...]:
         """Generate and save key pair for a client.
 
         Args:
             client_id: Client identifier
-            password: Optional password to encrypt private key
+            password: Optional password to encrypt private key (required if require_encryption=True)
+            require_encryption: Whether to require password for private key storage
 
         Returns:
             Tuple of (private_key_path, public_key_path)
+
+        Raises:
+            ValueError: If require_encryption=True but no password provided
         """
+        if require_encryption and password is None:
+            raise ValueError(
+                "Password must be provided when require_encryption=True. "
+                "For production use, always encrypt private keys at rest."
+            )
+
+        if password is None and not require_encryption:
+            import warnings
+            warnings.warn(
+                "Saving private key without encryption. This is not recommended for production.",
+                SecurityWarning,
+                stacklevel=2
+            )
+
         # Generate key pair
         private_key, public_key = self.signature_manager.generate_keypair()
 
@@ -160,7 +179,7 @@ class KeyManager:
         if metadata_path.exists():
             metadata_path.unlink()
 
-    def list_clients(self) -> list[str]:
+    def list_clients(self) -> List[str]:
         """List all clients with stored keys.
 
         Returns:
@@ -191,7 +210,7 @@ class KeyManager:
         client_id: str,
         password: Optional[bytes] = None,
         backup_old: bool = True,
-    ) -> Tuple[str, str]:
+    ) -> Tuple[str, ...]:
         """Generate new keys for a client (key rotation).
 
         Args:
@@ -312,7 +331,7 @@ class KeyStore:
         self._private_keys.pop(client_id, None)
         self._public_keys.pop(client_id, None)
 
-    def list_clients(self) -> list[str]:
+    def list_clients(self) -> List[str]:
         """List all clients in store.
 
         Returns:

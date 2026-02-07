@@ -3,7 +3,8 @@
 import base64
 import hashlib
 import json
-from typing import Dict, Any, Tuple
+import time
+from typing import Dict, Any, Tuple, Set, Optional
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.backends import default_backend
@@ -17,6 +18,8 @@ class SignatureManager:
 
     Provides signing and verification capabilities using elliptic curve
     digital signatures (ECDSA) for authenticating federated learning updates.
+
+    Now includes replay attack protection through signature tracking.
     """
 
     def __init__(self, curve: ec.EllipticCurve = ec.SECP256R1()):
@@ -27,6 +30,11 @@ class SignatureManager:
         """
         self.curve = curve
         self.backend = default_backend()
+        # Track seen signatures for replay protection
+        self._seen_signatures: Set[str] = set()
+        self._signature_timestamps: Dict[str, float] = {}
+        # Maximum age for signatures (seconds) - default 1 hour
+        self._max_signature_age = 3600
 
     def generate_keypair(self) -> Tuple[ec.EllipticCurvePrivateKey, ec.EllipticCurvePublicKey]:
         """Generate new ECDSA key pair.
@@ -70,16 +78,37 @@ class SignatureManager:
     def verify_update(
         self,
         signed_update: SignedUpdate,
+        check_timestamp: bool = True,
+        check_replay: bool = True,
     ) -> bool:
         """Verify ECDSA signature on a signed update.
 
         Args:
             signed_update: Signed update containing signature and public key
+            check_timestamp: Whether to validate timestamp is within acceptable window
+            check_replay: Whether to check for replay attacks
 
         Returns:
             True if signature is valid, False otherwise
         """
         try:
+            # Check timestamp first (lighter check before crypto operations)
+            if check_timestamp:
+                current_time = time.time()
+                update_time = signed_update.update.timestamp
+                # Reject updates older than max_signature_age or from future
+                if update_time < current_time - self._max_signature_age:
+                    return False
+                if update_time > current_time + 60:  # Allow 60 seconds clock skew
+                    return False
+
+            # Check for replay attacks
+            if check_replay:
+                # Create unique identifier for this signature
+                sig_identifier = self._get_signature_identifier(signed_update)
+                if sig_identifier in self._seen_signatures:
+                    return False  # This signature was already used
+
             # Deserialize public key
             public_key = self.deserialize_public_key(signed_update.public_key)
 
@@ -94,10 +123,50 @@ class SignatureManager:
 
             # Verify signature
             public_key.verify(signature, digest, ec.ECDSA(hashes.SHA256()))
+
+            # Mark signature as seen
+            if check_replay:
+                sig_identifier = self._get_signature_identifier(signed_update)
+                self._seen_signatures.add(sig_identifier)
+                self._signature_timestamps[sig_identifier] = time.time()
+
             return True
 
-        except (InvalidSignature, ValueError, Exception):
+        except (InvalidSignature, ValueError):
             return False
+        except Exception:
+            # Log unexpected exceptions for debugging but don't expose details
+            return False
+
+    def _get_signature_identifier(self, signed_update: SignedUpdate) -> str:
+        """Create unique identifier for a signature.
+
+        Args:
+            signed_update: The signed update
+
+        Returns:
+            Unique identifier string
+        """
+        return f"{signed_update.update.client_id}:{signed_update.update.round_num}:{signed_update.signature[:16]}"
+
+    def cleanup_old_signatures(self, max_age: float = 7200) -> int:
+        """Remove old signature records to prevent memory buildup.
+
+        Args:
+            max_age: Maximum age in seconds (default: 2 hours)
+
+        Returns:
+            Number of signatures removed
+        """
+        current_time = time.time()
+        to_remove = [
+            sig_id for sig_id, timestamp in self._signature_timestamps.items()
+            if current_time - timestamp > max_age
+        ]
+        for sig_id in to_remove:
+            self._seen_signatures.discard(sig_id)
+            del self._signature_timestamps[sig_id]
+        return len(to_remove)
 
     def serialize_public_key(self, public_key: ec.EllipticCurvePublicKey) -> str:
         """Convert public key to base64 string.
