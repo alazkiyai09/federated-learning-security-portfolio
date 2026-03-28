@@ -2,7 +2,9 @@
 > - [federated-learning-core](https://github.com/alazkiyai09/federated-learning-core) — Core FL algorithms
 > - [fl-adversarial-security](https://github.com/alazkiyai09/fl-adversarial-security) — Attack/defense toolkit
 > - [privacy-preserving-ml](https://github.com/alazkiyai09/privacy-preserving-ml) — Privacy components
-> - [signguard](https://github.com/alazkiyai09/signguard) — Cryptographic FL defense (standalone)\n\n# Federated Learning Security Portfolio
+> - [signguard](https://github.com/alazkiyai09/signguard) — Cryptographic FL defense (standalone)
+
+# Federated Learning Security Portfolio
 
 **Educational Portfolio**: Federated Learning Security Research Implementation
 
